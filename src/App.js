@@ -75,12 +75,12 @@ class App extends Component {
 		console.log(62, courses);
 
 		return (
-			<>
+			<div>
 				<h1 className="App-title">Welcome to Brookline Chinese School</h1>
 				<div>
 					{courses}
    		   		</div>
-			</>
+			</div>
 		);
 	}
 }
