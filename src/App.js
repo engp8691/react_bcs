@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import ReactFancyBox from 'react-fancybox';
-import 'react-fancybox/lib/fancybox.css.nomudule';
+// import ReactFancyBox from 'react-fancybox';
+// import 'react-fancybox/lib/fancybox.css.nomudule';
 import './App.css';
 import Course from './Course.js';
+import FancyBox from './FancyBox.js';
 
 class App extends Component {
 	state = ({
@@ -11,7 +12,9 @@ class App extends Component {
 			{id: '1000003', name: 'Chinese Level 2', teacher: 'Peng Li', biofile_en: 'pengli_en.html', biofile_cn: 'pengli_cn.html', time: '2:00 - 3:30pm', room: '114', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
 			{id: '1000005', name: 'Chinese Level 3', teacher: 'Li Qingwei', biofile_en: 'liqingwei_en.html', biofile_cn: 'liqingwei_cn.html', time: '2:00 - 3:30pm', room: '124', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
 			{id: '1000007', name: 'Chinese Level 4', teacher: 'Li Lijia', biofile_en: 'lilijia_en.html', biofile_cn: 'lilijia_cn.html', time: '2:00 - 3:30pm', room: '134', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: true, springselected: true}}
-		]
+		],
+		iframeURL: "",
+		showFancyBox: false
 	});
 
 	selectionChangedHandler = (event, id) => {
@@ -53,7 +56,7 @@ class App extends Component {
 		this.setState( { courses: courses } );
 	}
 
-	openTeacherIntroduction = (event, id) => {
+	openTeacherHandler = (event, id) => {
 		const courseIndex = this.state.courses.findIndex( c => {
 			return c.id === id;
 		});
@@ -62,7 +65,13 @@ class App extends Component {
 			...this.state.courses[courseIndex]
 		};
 
-		console.log("open file", course.biofile_en);
+		this.setState( { iframeURL: course.biofile_en, showFancyBox: true } );
+	}
+
+	closeFancyHandler = (event) => {
+		this.setState( { iframeURL: "", showFancyBox: false} );
+
+		console.log("Close Fancy Box");
 	}
 
 	render() {
@@ -81,9 +90,11 @@ class App extends Component {
 					selected={course.selected}
 					fallselected={course.termregistered.fallselected}
 					springselected={course.termregistered.springselected}
+					biofile_en={course.biofile_en}
+					biofile_cn={course.biofile_cn}
 					termchanged={(event) => this.termChangedHandler(event, course.id)}
 					changed={(event) => this.selectionChangedHandler(event, course.id )}
-					openTeacher={(event) => this.openTeacherIntroduction(event, course.id)}
+					openTeacher={(event) => this.openTeacherHandler(event, course.id)}
 				/>
 			);
 		}));
@@ -98,9 +109,11 @@ class App extends Component {
    		   		</div>
 
 				<div>
-				<ReactFancyBox
-          thumbnail="https://loremflickr.com/320/240"
-          image="https://www.w3schools.com/howto/img_forest.jpg" />
+				<FancyBox
+					iframeURL={this.state.iframeURL}
+					showFancyBox={this.state.showFancyBox}
+					closeFancy={(event)=>this.closeFancyHandler(event)}
+				/>
 		  		</div>
 			</div>
 		);

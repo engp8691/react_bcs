@@ -3,7 +3,7 @@ import classes from './Course.css';
 
 class Course extends Component{
 	render(){
-		return (
+		let content = (
 		<div className={classes.Course}>
 			<input type="checkbox" onChange={this.props.changed} value={this.props.id} />
 			<span>{this.props.name}</span>
@@ -34,8 +34,10 @@ class Course extends Component{
 				</tr>
 				</tbody>
 			</table>
-		</div>
-		);
+		</div>);
+
+
+		return content;
 	}
 }
 
