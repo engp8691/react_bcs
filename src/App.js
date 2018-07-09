@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactFancyBox from 'react-fancybox';
+import 'react-fancybox/lib/fancybox.css.nomudule';
 import './App.css';
 import Course from './Course.js';
 
@@ -94,6 +96,12 @@ class App extends Component {
 				<div>
 					{courses}
    		   		</div>
+
+				<div>
+				<ReactFancyBox
+          thumbnail="https://loremflickr.com/320/240"
+          image="https://www.w3schools.com/howto/img_forest.jpg" />
+		  		</div>
 			</div>
 		);
 	}
