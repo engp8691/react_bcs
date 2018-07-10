@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Course from './Course.js';
 import FancyBox from './FancyBox.js';
+import windowSize from 'react-window-size';
 
 class App extends Component {
 	state = ({
@@ -14,7 +15,9 @@ class App extends Component {
 			{id: '1000007', name: 'Chinese Level 4', teacher: 'Li Lijia', biofile_en: 'lilijia_en.html', biofile_cn: 'lilijia_cn.html', time: '2:00 - 3:30pm', room: '134', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: true, springselected: true}}
 		],
 		iframeURL: "",
-		showFancyBox: false
+		showFancyBox: false,
+		boxWidthPix: "540px",
+		boxHeightPix: "340px",
 	});
 
 	selectionChangedHandler = (event, id) => {
@@ -65,13 +68,47 @@ class App extends Component {
 			...this.state.courses[courseIndex]
 		};
 
-		this.setState( { iframeURL: course.biofile_en, showFancyBox: true } );
+		let windowWidth = this.props.windowWidth;
+		let windowHeight = this.props.windowHeight;
+		let boxWidth = 600;
+		let boxHeight = 480;
+
+		if(windowWidth>600){
+			boxWidth = 600;
+		}else{
+			boxWidth = windowWidth-60;
+		}
+		if(windowHeight>480){
+			boxHeight = 480;
+		}else{
+			boxHeight = windowHeight-60;
+		}
+
+		let boxWidthPix  = boxWidth + "px";
+		let boxHeightPix = boxHeight + "px";
+
+		console.log(90, boxWidthPix, boxHeightPix);
+
+		this.setState( { iframeURL: course.biofile_en, showFancyBox: true, boxWidthPix: boxWidthPix, boxHeightPix: boxHeightPix } );
 	}
 
 	closeFancyHandler = (event) => {
 		this.setState( { iframeURL: "", showFancyBox: false} );
 
 		console.log("Close Fancy Box");
+	}
+
+	componentDidMount () {
+		document.addEventListener('click', (event)=>{
+			console.log(103, event.target.type);
+			if(event.target.type !== "button"){
+				this.setState({ iframeURL: "", showFancyBox: false });
+			}
+		});
+	}
+
+	componentWillUnmount () {
+		document.removeEventListener('click', null);
 	}
 
 	render() {
@@ -113,6 +150,8 @@ class App extends Component {
 					iframeURL={this.state.iframeURL}
 					showFancyBox={this.state.showFancyBox}
 					closeFancy={(event)=>this.closeFancyHandler(event)}
+					boxWidthPix={this.state.boxWidthPix}
+					boxHeightPix={this.state.boxHeightPix}
 				/>
 		  		</div>
 			</div>
@@ -120,4 +159,5 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default windowSize(App);
+
