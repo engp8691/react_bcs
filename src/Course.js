@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import classes from './Course.css';
 
 class Course extends Component{
-	state = ({course: null});
+	state = ({});
 
 	componentDidMount() {
-		const {id} = this.props;
+		const {id, name, teacher, time, room, fallprice, springprice, selected, fallselected, springselected, biofile_en, biofile_cn} = this.props;
 
-		console.log(10, id);
+		console.log(10, id, name, teacher, time, room, fallprice, springprice, selected, fallselected, springselected, biofile_en, biofile_cn);
+		console.log(11, room);
 
 		this.setState({id});
 	}

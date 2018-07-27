@@ -8,12 +8,7 @@ import windowSize from 'react-window-size';
 class App extends Component {
 	
 	state = ({
-		courses: [
-//			{id: '1000001', name: 'Chinese Level 1', teacher: 'Wang Lan', biofile_en: 'wanglan_en.html', biofile_cn: 'wanglan_cn.html', time: '2:00 - 3:30pm', room: '104', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: false, springselected: false}},
-//			{id: '1000003', name: 'Chinese Level 2', teacher: 'Peng Li', biofile_en: 'pengli_en.html', biofile_cn: 'pengli_cn.html', time: '2:00 - 3:30pm', room: '114', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
-//			{id: '1000005', name: 'Chinese Level 3', teacher: 'Li Qingwei', biofile_en: 'liqingwei_en.html', biofile_cn: 'liqingwei_cn.html', time: '2:00 - 3:30pm', room: '124', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
-//			{id: '1000007', name: 'Chinese Level 4', teacher: 'Li Lijia', biofile_en: 'lilijia_en.html', biofile_cn: 'lilijia_cn.html', time: '2:00 - 3:30pm', room: '134', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: true, springselected: true}}
-		],
+		courses: [ ],
 		iframeURL: "",
 		showFancyBox: false,
 		boxWidthPix: "540px",
@@ -142,9 +137,6 @@ class App extends Component {
 					springselected={course.termregistered.springselected}
 					biofile_en={course.biofile_en}
 					biofile_cn={course.biofile_cn}
-					termchanged={(event) => this.termChangedHandler(event, course.id)}
-					changed={(event) => this.courseSelectionChangedHandler(event, course.id )}
-					openTeacher={(event) => this.openTeacherHandler(event, course.id)}
 				/>
 			);
 		}));
