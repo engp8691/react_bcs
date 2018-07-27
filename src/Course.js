@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 import classes from './Course.css';
 
 class Course extends Component{
-	state = ({});
+	state = {};
 
 	componentDidMount() {
-		const {id, name, teacher, time, room, fallprice, springprice, selected, fallselected, springselected, biofile_en, biofile_cn} = this.props;
+		// const {id, name, teacher, time, room, fallprice, springprice, selected, fallselected, springselected, biofile_en, biofile_cn} = this.props;
+		// this.setState({id, name, teacher, time, room, fallprice, springprice, selected, fallselected, springselected, biofile_en, biofile_cn});
+		this.setState(this.props);
 
-		console.log(10, id, name, teacher, time, room, fallprice, springprice, selected, fallselected, springselected, biofile_en, biofile_cn);
-		console.log(11, room);
-
-		this.setState({id});
+		console.log(12, this.state);
 	}
 
 	termChangedHandler = (event) => {
@@ -28,7 +27,7 @@ class Course extends Component{
 				<tr>
 					<td width="40px"></td>
 					<td className={classes.info_teacher}>Teacher:</td>
-					<td className={classes.info_teacher_name}><button type="button" onClick={this.props.openTeacher} className={classes.teacherButton}>{this.props.teacher}</button></td>
+					<td className={classes.info_teacher_name}><button type="button" onClick={this.props.openTeacher} className={classes.teacherButton}>{this.state.teacher}</button></td>
 				</tr>
 				<tr>
 					<td width="40px"></td>
