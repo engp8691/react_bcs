@@ -2,21 +2,6 @@ import React, {Component} from 'react';
 import classes from './Course.css';
 
 class Course extends Component{
-	state = ({course: null});
-
-	componentDidMount() {
-		const {id} = this.props;
-
-		console.log(10, id);
-
-		this.setState({id});
-	}
-
-	termChangedHandler = (event) => {
-		console.log(8, event.target.checked);
-		// this.setState( { courses: courses } );
-	}
-
 	render(){
 		let content = (
 		<div className={classes.Course}>
@@ -41,11 +26,11 @@ class Course extends Component{
 				</tr>
 				<tr>
 					<td width="40px"></td>
-					<td className={classes.info_teacher} colSpan="2"><input type="checkbox" value="fall" checked={this.props.fallselected} onClick={this.termChangedHandler} /> ${this.props.fallprice} Fall Term</td>
+					<td className={classes.info_teacher} colSpan="2"><input type="checkbox" value="fall" checked={this.props.fallselected} onChange={this.props.termchanged} /> ${this.props.fallprice} Fall Term</td>
 				</tr>
 				<tr>
 					<td width="40px"></td>
-					<td className={classes.info_teacher} colSpan="2"><input type="checkbox" value="spring" checked={this.props.springselected} onClick={this.props.termchanged} /> ${this.props.springprice} Spring Term</td>
+					<td className={classes.info_teacher} colSpan="2"><input type="checkbox" value="spring" checked={this.props.springselected} onChange={this.props.termchanged} /> ${this.props.springprice} Spring Term</td>
 				</tr>
 				</tbody>
 			</table>

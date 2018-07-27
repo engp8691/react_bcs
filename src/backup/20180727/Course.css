@@ -1,6 +1,6 @@
 .Course{
-  width: 342px;
-  height: 170px;
+  width: 250px;
+  height: 150px;
   border: 1px solid #ddd;
   display: inline-block;
   box-shadow: 0 3px 3px #ccc;
@@ -16,7 +16,7 @@ span{
 }
 
 .info{
-  width: 340px;
+  width: 240px;
   border-collapse: separate;
   border-spacing: 5px 5px;
   font-family: "Times New Roman", Times, serif;

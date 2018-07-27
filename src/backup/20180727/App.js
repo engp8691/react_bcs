@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import ReactFancyBox from 'react-fancybox';
+// import 'react-fancybox/lib/fancybox.css.nomudule';
 import './App.css';
 import Course from './Course.js';
 import FancyBox from './FancyBox.js';
 import windowSize from 'react-window-size';
 
 class App extends Component {
-	
 	state = ({
 		courses: [
-//			{id: '1000001', name: 'Chinese Level 1', teacher: 'Wang Lan', biofile_en: 'wanglan_en.html', biofile_cn: 'wanglan_cn.html', time: '2:00 - 3:30pm', room: '104', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: false, springselected: false}},
-//			{id: '1000003', name: 'Chinese Level 2', teacher: 'Peng Li', biofile_en: 'pengli_en.html', biofile_cn: 'pengli_cn.html', time: '2:00 - 3:30pm', room: '114', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
-//			{id: '1000005', name: 'Chinese Level 3', teacher: 'Li Qingwei', biofile_en: 'liqingwei_en.html', biofile_cn: 'liqingwei_cn.html', time: '2:00 - 3:30pm', room: '124', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
-//			{id: '1000007', name: 'Chinese Level 4', teacher: 'Li Lijia', biofile_en: 'lilijia_en.html', biofile_cn: 'lilijia_cn.html', time: '2:00 - 3:30pm', room: '134', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: true, springselected: true}}
+			{id: '1000001', name: 'Chinese Level 1', teacher: 'Wang Lan', biofile_en: 'wanglan_en.html', biofile_cn: 'wanglan_cn.html', time: '2:00 - 3:30pm', room: '104', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: false, springselected: false}},
+			{id: '1000003', name: 'Chinese Level 2', teacher: 'Peng Li', biofile_en: 'pengli_en.html', biofile_cn: 'pengli_cn.html', time: '2:00 - 3:30pm', room: '114', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
+			{id: '1000005', name: 'Chinese Level 3', teacher: 'Li Qingwei', biofile_en: 'liqingwei_en.html', biofile_cn: 'liqingwei_cn.html', time: '2:00 - 3:30pm', room: '124', fallprice: '220', springprice: '220', selected: false, termregistered: {fallselected: false, springselected: false}},
+			{id: '1000007', name: 'Chinese Level 4', teacher: 'Li Lijia', biofile_en: 'lilijia_en.html', biofile_cn: 'lilijia_cn.html', time: '2:00 - 3:30pm', room: '134', fallprice: '220', springprice: '220', selected: true, termregistered: {fallselected: true, springselected: true}}
 		],
 		iframeURL: "",
 		showFancyBox: false,
@@ -20,9 +20,7 @@ class App extends Component {
 		boxHeightPix: "340px",
 	});
 
-	courseSelectionChangedHandler = (event, id) => {
-		console.log(24, event, id);
-
+	selectionChangedHandler = (event, id) => {
 		const courseIndex = this.state.courses.findIndex( c => {
 			return c.id === id;
 		});
@@ -40,9 +38,6 @@ class App extends Component {
 	}
 
 	termChangedHandler = (event, id) => {
-		console.log(43, event.target.checked, id);
-
-
 		const courseIndex = this.state.courses.findIndex( c => {
 			return c.id === id;
 		});
@@ -93,7 +88,6 @@ class App extends Component {
 		let boxHeightPix = boxHeight + "px";
 
 		console.log(90, boxWidthPix, boxHeightPix);
-		console.log(91, course.biofile_en);
 
 		this.setState( { iframeURL: course.biofile_en, showFancyBox: true, boxWidthPix: boxWidthPix, boxHeightPix: boxHeightPix } );
 	}
@@ -105,13 +99,6 @@ class App extends Component {
 	}
 
 	componentDidMount () {
-		axios.get(`http://eventd.netbriefings.com/test/courses.php`).then(res => {
-			const coursesJson = res.data;
-			console.log(coursesJson);
-
-			this.setState({courses: coursesJson});
-		});
-
 		document.addEventListener('click', (event)=>{
 			console.log(103, event.target.type);
 			if(event.target.type !== "button"){
@@ -143,11 +130,13 @@ class App extends Component {
 					biofile_en={course.biofile_en}
 					biofile_cn={course.biofile_cn}
 					termchanged={(event) => this.termChangedHandler(event, course.id)}
-					changed={(event) => this.courseSelectionChangedHandler(event, course.id )}
+					changed={(event) => this.selectionChangedHandler(event, course.id )}
 					openTeacher={(event) => this.openTeacherHandler(event, course.id)}
 				/>
 			);
 		}));
+
+		console.log(62, courses);
 
 		return (
 			<div>
