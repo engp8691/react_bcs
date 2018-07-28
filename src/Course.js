@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classes from './Course.css';
 
 class Course extends Component{
-	state = {}
+	state = {selected: false, fallselected: false, springselected: false}
 
 	openTeacherHandler = (event) => {
 		console.log(18, event);
