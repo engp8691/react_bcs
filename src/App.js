@@ -15,48 +15,19 @@ class App extends Component {
 		boxHeightPix: "340px",
 	});
 
-	courseSelectionChangedHandler = (event, id) => {
-		console.log(24, event, id);
+	componentDidMount () {
+		console.log(19, "componentDidMount");
 
-		const courseIndex = this.state.courses.findIndex( c => {
-			return c.id === id;
+		axios.get(`http://eventd.netbriefings.com/test/courses.php`).then(res => {
+			const coursesJson = res.data;
+			console.log(coursesJson);
+
+			this.setState({courses: coursesJson});
 		});
-
-		const course = {
-			...this.state.courses[courseIndex]
-		};
-
-		course.selected = !course.selected;
-
-		const courses = [...this.state.courses];
-		courses[courseIndex] = course;
-
-		this.setState( { courses: courses } );
 	}
 
-	termChangedHandler = (event, id) => {
-		console.log(43, event.target.checked, id);
-
-
-		const courseIndex = this.state.courses.findIndex( c => {
-			return c.id === id;
-		});
-
-		const course = {
-			...this.state.courses[courseIndex]
-		};
-
-		if(event.target.value === "fall"){
-			course.termregistered.fallselected = !course.termregistered.fallselected;
-		}
-		if(event.target.value === "spring"){
-			course.termregistered.springselected = !course.termregistered.springselected;
-		}
-
-		const courses = [...this.state.courses];
-		courses[courseIndex] = course;
-
-		this.setState( { courses: courses } );
+	componentWillUnmount () {
+		document.removeEventListener('click', null);
 	}
 
 	openTeacherHandler = (event, id) => {
@@ -83,40 +54,15 @@ class App extends Component {
 		}else{
 			boxHeight = windowHeight-60;
 		}
-
 		let boxWidthPix  = boxWidth + "px";
 		let boxHeightPix = boxHeight + "px";
-
 		console.log(90, boxWidthPix, boxHeightPix);
-		console.log(91, course.biofile_en);
-
 		this.setState( { iframeURL: course.biofile_en, showFancyBox: true, boxWidthPix: boxWidthPix, boxHeightPix: boxHeightPix } );
 	}
 
 	closeFancyHandler = (event) => {
 		this.setState( { iframeURL: "", showFancyBox: false} );
-
 		console.log("Close Fancy Box");
-	}
-
-	componentDidMount () {
-		axios.get(`http://eventd.netbriefings.com/test/courses.php`).then(res => {
-			const coursesJson = res.data;
-			console.log(coursesJson);
-
-			this.setState({courses: coursesJson});
-		});
-
-		document.addEventListener('click', (event)=>{
-			console.log(103, event.target.type);
-			if(event.target.type !== "button"){
-				this.setState({ iframeURL: "", showFancyBox: false });
-			}
-		});
-	}
-
-	componentWillUnmount () {
-		document.removeEventListener('click', null);
 	}
 
 	render() {
@@ -137,6 +83,7 @@ class App extends Component {
 					springselected={course.termregistered.springselected}
 					biofile_en={course.biofile_en}
 					biofile_cn={course.biofile_cn}
+					openTeacher={(event) => this.openTeacherHandler(event, course.id)}
 				/>
 			);
 		}));
