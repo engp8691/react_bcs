@@ -1,40 +1,14 @@
 import React, {Component} from 'react';
 import classes from './Course.css';
+import { getToggleFancyBox } from './FancyBox.js';
 
 class Course extends Component{
 	state = {selected: false, fallselected: false, springselected: false}
 
-	openTeacherHandler = (event) => {
-		console.log(18, event);
-
-		let windowWidth = this.props.windowWidth;
-		let windowHeight = this.props.windowHeight;
-		let boxWidth = 600;
-		let boxHeight = 480;
-		
-		if(windowWidth>600){
-			boxWidth = 600;
-		}else{
-			boxWidth = windowWidth-60;
-		}
-		if(windowHeight>480){
-			boxHeight = 480;
-		}else{
-			boxHeight = windowHeight-60;
-		}
-
-		let boxWidthPix  = boxWidth + "px";
-		let boxHeightPix = boxHeight + "px";
-
-		this.setState( { iframeURL: this.state.biofile_en, showFancyBox: true, boxWidthPix: boxWidthPix, boxHeightPix: boxHeightPix } );
-	}
-
 	courseSelectionChangedHandler = (event) => {
 		console.log(24, event.target.name, event.target.checked);
-		let caobi = Math.random().toString(36).substring(7);
-		this.state = {...this.state, selected: event.target.checked, fallselected: event.target.checked, springselected: event.target.checked, name: caobi};
-		console.log(55, this.state);
-		this.setState(this.state);
+		// this.state = {...this.state, selected: event.target.checked, fallselected: event.target.checked, springselected: event.target.checked};
+		this.setState({...this.state, selected: event.target.checked, fallselected: event.target.checked, springselected: event.target.checked});
 	}
 
 	termChangedHandler = (event) => {
@@ -56,6 +30,12 @@ class Course extends Component{
 		}
 	}
 
+	openTeacherHandler = (event) => {
+		console.log(34, this.state.biofile_en);
+		console.log(35, this.state.biofile_cn);
+
+		getToggleFancyBox()(true, this.state.biofile_en);
+	}
 
 	componentWillReceiveProps(nextProps){
 	}
@@ -65,13 +45,12 @@ class Course extends Component{
 	}
 
 	componentDidMount() {
-		this.state = {...this.props};
+		// this.state = {...this.props};
 		this.setState({...this.props});
 	}
 
 	render(){
-		console.log(71, this.state);
-
+		// console.log(71, this.state);
 		let content = (
 		<div className={classes.Course}>
 			<table border="0px"  className={classes.info}>
@@ -84,7 +63,7 @@ class Course extends Component{
 				<tr>
 					<td width="40px"></td>
 					<td className={classes.info_teacher}>Teacher:</td>
-					<td className={classes.info_teacher_name}><button type="button" onClick={this.props.openTeacher} className={classes.teacherButton}>{this.state.teacher}</button></td>
+					<td className={classes.info_teacher_name}><button type="button" onClick={this.openTeacherHandler} className={classes.teacherButton}>{this.state.teacher}</button></td>
 				</tr>
 				<tr>
 					<td width="40px"></td>
