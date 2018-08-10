@@ -35,7 +35,7 @@ class FancyBox extends Component {
 			<div className="react-fancybox">
 				<div className="box">
 					<div className="image-box">
-						<img className="close-btn" src="./close.svg" alt="close" onClick={this.props.closeFancy} />
+						<img className="close-btn" src="./close.svg" alt="close" onClick={this.props.closeFancy} cursor="pointer" />
 						<iframe id="inlineFrameExample"
 							title="Inline Frame Example"
 							width={this.props.boxWidthPix}

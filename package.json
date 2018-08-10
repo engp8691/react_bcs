@@ -36,6 +36,7 @@
     "react-dev-utils": "^4.0.1",
     "react-dom": "^16.4.0",
     "react-fancybox": "^0.2.3",
+    "react-jsonschema-form": "^1.0.4",
     "react-window-size": "^1.2.0",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
