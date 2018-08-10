@@ -6,7 +6,6 @@ import TeacherForm from './TeacherForm.js';
 import AddTeacherButton from './AddTeacherButton.js';
 import FancyBox, { getToggleFancyBox } from './FancyBox.js';
 import windowSize from 'react-window-size';
-import classes from "./TeacherForm.css";
 
 class App extends Component {
 	
